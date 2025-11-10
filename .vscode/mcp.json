@@ -1,0 +1,13 @@
+{
+	"servers": {
+		"Prueba_Email": {
+			"type": "stdio",
+			"command": "uv",
+			"args": [
+				"run",
+				"server.py"
+			]
+		}
+	},
+	"inputs": []
+}
