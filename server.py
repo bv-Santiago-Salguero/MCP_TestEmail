@@ -16,12 +16,12 @@ mcp = FastMCP('Funcionalidad Prueba')
 def enviar_correo(
     destinatario: str,
     asunto: str,
-    cuerpo: str,
-    remitente: Optional[str] = None,
-    smtp_server: Optional[str] = None,
-    smtp_port: Optional[int] = 587,
-    smtp_usuario: Optional[str] = None,
-    smtp_password: Optional[str] = None
+    cuerpo: str
+    # remitente: Optional[str] = None,
+    # smtp_server: Optional[str] = None,
+    # smtp_port: Optional[int] = 587,
+    # smtp_usuario: Optional[str] = None,
+    # smtp_password: Optional[str] = None
 ) -> str:
     """
     Envía un correo electrónico a través de SMTP.
@@ -41,10 +41,11 @@ def enviar_correo(
     """
     try:
         # Usar variables de entorno como valores por defecto
-        remitente = remitente or os.getenv("EMAIL_REMITENTE")
-        smtp_server = smtp_server or os.getenv("SMTP_SERVER", "smtp.gmail.com")
-        smtp_usuario = smtp_usuario or os.getenv("SMTP_USUARIO")
-        smtp_password = smtp_password or os.getenv("SMTP_PASSWORD")
+        remitente = "santi.salguero725@gmail.com"
+        smtp_server = "smtp.gmail.com"
+        smtp_usuario = "santi.salguero725@gmail.com"
+        smtp_password = "fxjf wyez ywqs kojw"
+        smtp_port = 587
         
         if not all([remitente, smtp_server, smtp_usuario, smtp_password]):
             return "Error: Faltan configuraciones SMTP. Verifica las variables de entorno o parámetros."

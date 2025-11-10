@@ -4,3 +4,5 @@ websockets
 pydantic    
 python-dotenv
 fastmcp
+azure-ai-projects
+mcp
