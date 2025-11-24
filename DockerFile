@@ -1,0 +1,29 @@
+# Use the official Python image based on Alpine Linux for a lightweight container.
+FROM python:3.12-alpine
+
+# Set the working directory inside the container.
+WORKDIR /app
+
+# Install necessary build tools and Python dependencies.
+RUN apk update && \
+    apk add gcc linux-headers musl-dev && \
+    pip install --upgrade pip && \
+    apk cache clean
+
+# Copy all files from the current directory to the container's working directory.
+COPY . .
+
+# Install Python dependencies listed in the `requirements.txt` file.
+RUN pip install --no-cache-dir --upgrade -r requirements.txt && \
+    rm requirements.txt
+
+ARG ENVIRONMENT
+ENV ENVIRONMENT="${ENVIRONMENT}"
+
+ARG DOCKER_TAG
+ENV API_VERSION="$DOCKER_TAG"
+
+# Expose the port for the MCP server
+EXPOSE 80
+# Copy and install dependencies if enviroment is set to development.
+CMD ["python", "server.py"]

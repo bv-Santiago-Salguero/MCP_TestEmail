@@ -1,3 +1,4 @@
+import sys
 from fastmcp import FastMCP
 import os
 import smtplib
@@ -10,18 +11,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Inicializar FastMCP
-mcp = FastMCP('Funcionalidad Prueba')
+mcp = FastMCP('TestEmail')
 
 @mcp.tool
 def enviar_correo(
     destinatario: str,
     asunto: str,
-    cuerpo: str
-    # remitente: Optional[str] = None,
-    # smtp_server: Optional[str] = None,
-    # smtp_port: Optional[int] = 587,
-    # smtp_usuario: Optional[str] = None,
-    # smtp_password: Optional[str] = None
+    cuerpo: str,
+    remitente: Optional[str] = None,
+    smtp_server: Optional[str] = None,
+    smtp_port: Optional[int] = 587,
+    smtp_usuario: Optional[str] = None,
+    smtp_password: Optional[str] = None
 ) -> str:
     """
     Envía un correo electrónico a través de SMTP.
@@ -41,11 +42,11 @@ def enviar_correo(
     """
     try:
         # Usar variables de entorno como valores por defecto
-        remitente = "santi.salguero725@gmail.com"
-        smtp_server = "smtp.gmail.com"
-        smtp_usuario = "santi.salguero725@gmail.com"
-        smtp_password = "fxjf wyez ywqs kojw"
-        smtp_port = 587
+        remitente = remitente or os.getenv('EMAIL_REMITENTE')
+        smtp_server = smtp_server or os.getenv('SMTP_SERVER')
+        smtp_usuario = smtp_usuario or os.getenv('SMTP_USUARIO')
+        smtp_password = smtp_password or os.getenv('SMTP_PASSWORD')
+        smtp_port = smtp_port or int(os.getenv('SMTP_PORT', 587))
         
         if not all([remitente, smtp_server, smtp_usuario, smtp_password]):
             return "Error: Faltan configuraciones SMTP. Verifica las variables de entorno o parámetros."
@@ -114,4 +115,9 @@ Debes usar la herramienta enviar_correo con:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    try:
+        # Initialize and run the server
+        print("Starting MCP server...")
+        mcp.run(transport="http", host="0.0.0.0", port=80)
+    except Exception as e:
+        print(f"Error while running MCP server: {e}", file=sys.stderr)

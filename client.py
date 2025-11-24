@@ -4,6 +4,7 @@ from azure.identity import ClientSecretCredential
 from azure.ai.projects import AIProjectClient
 from azure.ai.agents import AgentsClient
 from azure.ai.agents.models import McpTool, ToolSet, ListSortOrder, MessageRole
+from fastmcp import Client
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
@@ -32,8 +33,8 @@ agent = project_client.agents.get_agent(os.getenv("FOUNDRY_AGENT_ID"))
 print(f"Conectado al agente: {agent.name} (ID: {agent.id})")
 
 # MCP tool
-mcp_server_url = "https://TestSendEmails.fastmcp.app/mcp"
-mcp_server_label = "Envio_de_Correos"
+mcp_server_url = "http://localhost:80/mcp"
+mcp_server_label = "enviar_correo"
 
 mcp_tool = McpTool(
     server_label=mcp_server_label,

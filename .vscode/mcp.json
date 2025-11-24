@@ -1,12 +1,12 @@
 {
 	"servers": {
-		"Prueba_Email": {
-			"type": "stdio",
-			"command": "uv",
-			"args": [
-				"run",
-				"server.py"
-			]
+		"Envio_Correos_http": {
+			"type": "http",
+			"url": "http://localhost:80/mcp"
+		},
+		"MCP_ACA": {
+			"url": "https://ca-bv-ind-dev-mcpserver-002.purplemoss-090320df.eastus.azurecontainerapps.io/mcp",
+			"type": "http"
 		}
 	},
 	"inputs": []

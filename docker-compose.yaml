@@ -1,0 +1,29 @@
+services:
+  mcp_services:
+    container_name: mcp_services
+    build:
+      context: .
+      dockerfile: DockerFile
+      args:
+        - DOCKER_TAG=DEVELOPMENT
+        - ENVIRONMENT=development
+    ports:
+      - "80:80"
+    networks:
+      - app-network
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+        reservations:
+          cpus: '0.0001'
+          memory: 20M
+    # profiles:
+    #   - donotstart
+
+networks:
+  app-network:
+    driver: bridge  
