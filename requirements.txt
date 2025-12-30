@@ -3,3 +3,5 @@ pydantic
 python-dotenv
 fastmcp
 azure-ai-projects
+msgraph-sdk
+azure-identity
